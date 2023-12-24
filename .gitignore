@@ -12,6 +12,7 @@
 /.idea/vcs.xml
 /.idea/migrations.xml
 /.idea/misc.xml
+.idea
 .DS_Store
 /build
 /captures
