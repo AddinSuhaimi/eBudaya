@@ -4,15 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#92754B"
     tools:context=".Activities.RegisterActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:id="@+id/SignUpTitle"
+        android:layout_width="150dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="608dp"
+        android:text="Sign Up"
+        android:textColor="#FBEFEF"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/SignUpDesc"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="588dp"
+        android:text="To continue, Sign Up"
+        android:textColor="#FBEFEF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Username"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="492dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Username"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="416dp"
+        android:ems="10"
+        android:hint="Email Address (Multiline)"
+        android:inputType="textEmailAddress|textMultiLine"
+        android:text="Email Address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="340dp"
+        android:ems="10"
+        android:inputType="textPassword|textVisiblePassword"
+        android:text="Password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/AgreeTerms"
+        android:layout_width="291dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="292dp"
+        android:text="I agree to the terms and conditions"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="228dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="216dp"
+        android:singleLine="false"
+        android:soundEffectsEnabled="false"
+        android:text="Create Account"
+        android:background="#FCBB4A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/LoginClick"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="156dp"
+        android:clickable="true"
+        android:onClick="onLoginClicked"
+        android:text="Already have an account? Log in"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
