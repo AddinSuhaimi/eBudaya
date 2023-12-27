@@ -19,24 +19,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="222dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginBottom="304dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword|textVisiblePassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/regBtn"
         android:layout_width="228dp"
         android:layout_height="48dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="180dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="176dp"
         android:background="#FCBB4A"
         android:singleLine="false"
         android:soundEffectsEnabled="false"
@@ -44,12 +32,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/regProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginBottom="176dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/LoginClick"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="108dp"
         android:clickable="true"
         android:onClick="onLoginClicked"
         android:text="Already have an account? Log in"
@@ -57,22 +55,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/AgreeTerms"
-        android:layout_width="291dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="256dp"
-        android:text="I agree to the terms and conditions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/regName"
         android:layout_width="222dp"
         android:layout_height="50dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="456dp"
+        android:layout_marginBottom="468dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
@@ -80,11 +68,23 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/regPassword2"
         android:layout_width="222dp"
         android:layout_height="50dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="376dp"
+        android:layout_marginBottom="268dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/regMail"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="400dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress|textMultiLine"
@@ -100,6 +100,18 @@
         android:text="To continue, Sign Up"
         android:textColor="#FBEFEF"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/regPassword"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="332dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
