@@ -2,22 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#92754B"
     tools:context=".Activities.RegisterActivity">
-
-    <TextView
-        android:id="@+id/SignUpTitle"
-        android:layout_width="150dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="572dp"
-        android:text="Sign Up"
-        android:textColor="#FBEFEF"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/regBtn"
@@ -91,18 +80,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/SignUpDesc"
-        android:layout_width="150dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="552dp"
-        android:text="To continue, Sign Up"
-        android:textColor="#FBEFEF"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/regPassword"
         android:layout_width="222dp"
@@ -114,6 +91,16 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/regUserPhoto"
+        android:layout_width="83dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="544dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/profilepic" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

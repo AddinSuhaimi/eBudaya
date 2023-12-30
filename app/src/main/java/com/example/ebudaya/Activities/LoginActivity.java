@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         loginGoogleProgress = findViewById(R.id.LoginGoogleProgressBar);
         mAuth = FirebaseAuth.getInstance();
         HomeActivity = new Intent(this,com.example.ebudaya.Activities.HomeActivity.class);
+        //RegisterActivity = new Intent(this,com.example.ebudaya.Activities.RegisterActivity.class);
 
         loginProgress.setVisibility(View.INVISIBLE);
         btnLogin.setOnClickListener(new View.OnClickListener() {
