@@ -119,7 +119,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void updateUI() {
 
-        Intent homeActivity = new Intent(getApplicationContext(), HomeActivity.class);
+        // either Home.class (this has navigation drawer) or HomeActivity.class)
+        Intent homeActivity = new Intent(getApplicationContext(), Home.class);
         startActivity(homeActivity);
         finish();
 

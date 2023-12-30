@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.navigation:navigation-fragment:2.7.6")
     implementation("androidx.navigation:navigation-ui:2.7.6")
+    implementation("com.github.bumptech.glide:glide:5.0.0-rc01")
 
 
     // Add the dependencies for any other desired Firebase products

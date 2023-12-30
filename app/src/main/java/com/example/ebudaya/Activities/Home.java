@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.example.ebudaya.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,6 +40,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // (based on video)
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         binding = ActivityHome2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -44,6 +50,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         // initialize firebase
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        //(based on video) idk if it used, maybe not
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +62,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
+
+        //(based on video)
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -62,6 +79,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // (based on video)
+        updateNavHeader();
+
+    }
+
+    //(based on video) onBackPressed (deprecated) - but follow the video purposely
+    public void onBackPressed() {
+        DrawerLayout drawer = binding.drawerLayout;
+        if (drawer.isDrawerOpen(binding.getRoot())) {
+            drawer.closeDrawer(binding.getRoot());
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -70,6 +101,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
+
+    // onOptionsItemSelected (deprecated) - but follow the video purposely
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -90,6 +124,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         // now we will use Glide to load user image
         // first we need to import the library
+        Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserPhot);
     }
 
 
