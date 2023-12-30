@@ -16,10 +16,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText userName , password1;
+    private EditText userMail , password1;
     private Button btnLogin , btnLoginGoogle;
     private ProgressBar loginProgress , loginGoogleProgress;
     private FirebaseAuth mAuth;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        userName = findViewById(R.id.ETUsername);
+        userMail = findViewById(R.id.ETEmail);
         password1 = findViewById(R.id.ETPassword);
         btnLogin = findViewById(R.id.BTNLogin);
         btnLoginGoogle = findViewById(R.id.BTNLoginGoogle);
@@ -47,23 +48,25 @@ public class LoginActivity extends AppCompatActivity {
                 loginProgress.setVisibility(View.INVISIBLE);
                 btnLogin.setVisibility(View.INVISIBLE);
 
-                final String username = userName.getText().toString();
+                final String usermail = userMail.getText().toString();
                 final String password2 = password1.getText().toString();
 
-                if (username.isEmpty() || password2.isEmpty()){
+                if (usermail.isEmpty() || password2.isEmpty()){
                     showMessage("Please verify all the field");
+                    btnLogin.setVisibility(View.VISIBLE);
+                    loginProgress.setVisibility(View.INVISIBLE);
                 }
                 else{
-                    signIn(username,password2);
+                    signIn(usermail,password2);
                 }
             }
         });
 
     }
 
-    private void signIn(String username, String password2) {
+    private void signIn(String usermail, String password2) {
         
-        mAuth.signInWithEmailAndPassword(username,password2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(usermail,password2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 
@@ -72,8 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogin.setVisibility(View.VISIBLE);
                     updateUI();
                 }
-                else
+                else {
                     showMessage(task.getException().getMessage());
+                    btnLogin.setVisibility(View.VISIBLE);
+                    loginProgress.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -87,5 +93,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showMessage(String text){
         Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            updateUI();
+        }
     }
 }
