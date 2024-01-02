@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ebudaya.R;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -162,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //user account created successfully
                             showMessage("Account created");
                             //after we created user account we need to update their info
-                            updateUserInfo(name, mAuth.getCurrentUser());
+                            updateUserInfo(name, pickedImgUri, mAuth.getCurrentUser());
 
                         }
                         else {
@@ -177,23 +178,48 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //update user photo and name
-    private void updateUserInfo(String name, FirebaseUser currentUser) {
+    private void updateUserInfo(String name, Uri pickedImgUri, FirebaseUser currentUser) {
 
-            UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
-                    .build();
+        //first we need to upload user photo to firebase storage
 
-            currentUser.updateProfile(profileUpdate)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                //user info updated successfully
-                                showMessage(("Register Complete"));
-                                updateUI();
-                            }
-                        }
-                    });
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
+        StorageReference imageFilePath = mStorage.child(pickedImgUri.getLastPathSegment());
+        imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                //image uploaded successfully
+                //now we can get our image uri
+
+                imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        // uri contains user image url
+
+                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(name)
+                                .setPhotoUri(uri)
+                                .build();
+
+                        currentUser.updateProfile(profileUpdate)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        if (task.isSuccessful()) {
+                                            //user info updated successfully
+                                            showMessage("Register Complete");
+                                            updateUI();
+                                        }
+
+                                    }
+                                });
+
+                    }
+                });
+            }
+        });
 
     }
 
