@@ -190,7 +190,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //image uploaded successfully
                 //now we can get our image uri
-
                 imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
