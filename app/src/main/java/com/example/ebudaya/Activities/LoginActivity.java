@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar loginProgress , loginGoogleProgress;
     private FirebaseAuth mAuth;
     private Intent HomeActivity;
+    private ImageView loginPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,15 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         HomeActivity = new Intent(this,com.example.ebudaya.Activities.HomeActivity.class);
         //RegisterActivity = new Intent(this,com.example.ebudaya.Activities.RegisterActivity.class);
+        loginPhoto = findViewById(R.id.IVProfilePic);
+        loginPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerActivity = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(registerActivity);
+                finish();
+            }
+        });
 
         loginProgress.setVisibility(View.INVISIBLE);
         btnLogin.setOnClickListener(new View.OnClickListener() {

@@ -12,7 +12,7 @@
         android:layout_width="118dp"
         android:layout_height="54dp"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="28dp"
         android:text="Log In"
         android:textColor="#FBEFEF"
         android:textSize="40dp"
@@ -26,7 +26,7 @@
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:layout_marginStart="128dp"
-        android:layout_marginBottom="556dp"
+        android:layout_marginBottom="588dp"
         android:text="Welcome back!"
         android:textColor="#FBEFEF"
         android:textSize="15sp"
@@ -40,7 +40,7 @@
         android:layout_width="222dp"
         android:layout_height="50dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="376dp"
+        android:layout_marginBottom="316dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -54,7 +54,7 @@
         android:layout_width="228dp"
         android:layout_height="48dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="292dp"
+        android:layout_marginBottom="236dp"
         android:background="#FCBB4A"
         android:singleLine="false"
         android:soundEffectsEnabled="false"
@@ -66,10 +66,10 @@
 
     <TextView
         android:id="@+id/SignUpClick"
-        android:layout_width="wrap_content"
+        android:layout_width="204dp"
         android:layout_height="48dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginBottom="176dp"
         android:clickable="true"
         android:onClick="onSignUpClicked"
         android:text="Done have an account? Sign Up"
@@ -82,13 +82,13 @@
         android:layout_width="82dp"
         android:layout_height="44dp"
         android:layout_marginStart="128dp"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="112dp"
         android:text="OR"
         android:textColor="#FBEFEF"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -96,7 +96,7 @@
         android:layout_width="228dp"
         android:layout_height="48dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="44dp"
         android:background="#FCBB4A"
         android:singleLine="false"
         android:soundEffectsEnabled="false"
@@ -137,7 +137,18 @@
         android:inputType="textEmailAddress|textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/ETPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/IVProfilePic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TVLoginDesc"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
