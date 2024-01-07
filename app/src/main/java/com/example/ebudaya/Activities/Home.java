@@ -1,5 +1,6 @@
 package com.example.ebudaya.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,10 +81,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_profile, R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.content_home);
+        NavController navController = Navigation.findNavController(this, R.id.container);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -114,7 +115,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.content_home);
+        NavController navController = Navigation.findNavController(this, R.id.container);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
@@ -122,19 +123,23 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     // (based on video) onNavigationItemSelected (deprecated) - but follow the video purposely
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         }
         else if (id == R.id.nav_profile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new ProfileFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
         }
         else if (id == R.id.nav_settings) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new SettingsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
         }
         else if (id == R.id.nav_signout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(loginActivity);
+            finish();
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
