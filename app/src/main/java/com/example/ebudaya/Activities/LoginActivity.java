@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         loginProgress = findViewById(R.id.LoginProgressBar);
         loginGoogleProgress = findViewById(R.id.LoginGoogleProgressBar);
         mAuth = FirebaseAuth.getInstance();
-        HomeActivity = new Intent(this,com.example.ebudaya.Activities.HomeActivity.class);
+        HomeActivity = new Intent(this,com.example.ebudaya.Activities.Home.class);
         //RegisterActivity = new Intent(this,com.example.ebudaya.Activities.RegisterActivity.class);
         loginPhoto = findViewById(R.id.IVProfilePic);
         loginPhoto.setOnClickListener(new View.OnClickListener() {
