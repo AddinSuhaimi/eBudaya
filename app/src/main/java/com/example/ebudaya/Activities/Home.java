@@ -6,9 +6,14 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.GravityInt;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.ebudaya.Fragments.HomeFragment;
+import com.example.ebudaya.Fragments.ProfileFragment;
+import com.example.ebudaya.Fragments.SettingsFragment;
 import com.example.ebudaya.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,6 +21,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -76,7 +83,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        NavController navController = Navigation.findNavController(this, R.id.content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -107,9 +114,32 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        NavController navController = Navigation.findNavController(this, R.id.content_home);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    // (based on video) onNavigationItemSelected (deprecated) - but follow the video purposely
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new HomeFragment()).commit();
+        }
+        else if (id == R.id.nav_profile) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new ProfileFragment()).commit();
+        }
+        else if (id == R.id.nav_settings) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new SettingsFragment()).commit();
+        }
+        else if (id == R.id.nav_signout) {
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public void updateNavHeader() {
@@ -127,9 +157,4 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserPhot);
     }
 
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
 }
