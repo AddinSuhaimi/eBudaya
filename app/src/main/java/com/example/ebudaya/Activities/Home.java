@@ -1,7 +1,11 @@
 package com.example.ebudaya.Activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -43,6 +47,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    Dialog popAddPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +64,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        //(based on video) idk if it used, maybe not
+        // initialize popup
+        iniPopup();
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         // here we will add the click listener to fab, add post
-        binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action testing", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                popAddPost.show();
             }
         });
 //        DrawerLayout drawer = binding.drawerLayout;
@@ -105,6 +112,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
 
+    private void iniPopup() {
+        popAddPost = new Dialog(this);
+        popAddPost.setContentView(R.layout.popup_add_post);
+        popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
+        popAddPost.getWindow().getAttributes().gravity = Gravity.TOP;
+    }
+
     //(based on video) onBackPressed (deprecated) - but follow the video purposely
     public void onBackPressed() {
         DrawerLayout drawer = binding.drawerLayout;
@@ -132,7 +147,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 || super.onSupportNavigateUp();
     }
 
-    // (based on video) onNavigationItemSelected (deprecated) - but follow the video purposely
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
