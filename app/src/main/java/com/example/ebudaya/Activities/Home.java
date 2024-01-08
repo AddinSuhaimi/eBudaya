@@ -139,12 +139,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            getSupportActionBar().setTitle("Home");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         }
         else if (id == R.id.nav_profile) {
+            getSupportActionBar().setTitle("Profile");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
         }
         else if (id == R.id.nav_settings) {
+            getSupportActionBar().setTitle("Settings");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
         }
         else if (id == R.id.nav_signout) {
