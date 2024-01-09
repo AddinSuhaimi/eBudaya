@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.GravityInt;
@@ -48,6 +49,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     Dialog popAddPost;
+    ImageView popupUserImage, popupPostImage, popupAddBtn;
+    TextView popupTitle, popupDescription;
+    ProgressBar popupClickProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +122,29 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
         popAddPost.getWindow().getAttributes().gravity = Gravity.TOP;
+
+        // ini popup widgets
+        popupUserImage = popAddPost.findViewById(R.id.popup_user_image);
+        popupPostImage = popAddPost.findViewById(R.id.popup_img);
+        popupTitle = popAddPost.findViewById(R.id.popup_title);
+        popupDescription = popAddPost.findViewById(R.id.popup_description);
+        popupAddBtn = popAddPost.findViewById(R.id.popup_add);
+        popupClickProgress = popAddPost.findViewById(R.id.popup_progressBar);
+
+        // load current user profile photo
+        Glide.with(Home.this).load(currentUser.getPhotoUrl()).into(popupUserImage);
+
+        // Add post click listener
+        popupAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //when click on add post button,the post button will be invisible and progress bar will be visible
+                popupAddBtn.setVisibility(View.INVISIBLE);
+                popupClickProgress.setVisibility(View.VISIBLE);
+            }
+        });
+
+
     }
 
     //(based on video) onBackPressed (deprecated) - but follow the video purposely
