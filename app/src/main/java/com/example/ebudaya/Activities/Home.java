@@ -1,7 +1,9 @@
 package com.example.ebudaya.Activities;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.GravityInt;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +30,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -46,6 +51,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHome2Binding binding;
 
+    private  static final int PReqCode = 2;
+    private  static final int REQUESTCODE = 2;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     Dialog popAddPost;
@@ -70,6 +77,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         // initialize popup
         iniPopup();
+        setupPopupImageClick();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -114,6 +122,49 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         updateNavHeader();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
+    }
+
+    private void setupPopupImageClick() {
+
+        popupPostImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // here when image clicked we need to open the gallery
+                // before we open the gallery we need to check if our app have the access to user files
+                // we did this before in register activity I'm just going to copy the code to save time ...
+
+
+            }
+        });
+    }
+
+    private void checkAndRequestForPermission() {
+
+        if(ContextCompat.checkSelfPermission(Home.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(Home.this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                Toast.makeText(Home.this,"Please accept required permissions",Toast.LENGTH_SHORT).show();
+            }
+
+            else {
+                ActivityCompat.requestPermissions(Home.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PReqCode);
+            }
+
+        }
+        else
+            openGallery();
+
+    }
+
+    private void openGallery() {
+
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,REQUESTCODE);
+
     }
 
     private void iniPopup() {
