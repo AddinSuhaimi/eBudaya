@@ -1,11 +1,14 @@
 package com.example.ebudaya.Activities;
 
+import android.app.Activity;
+import android.util.Log;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -16,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.GravityInt;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,7 +28,10 @@ import com.bumptech.glide.Glide;
 import com.example.ebudaya.Fragments.HomeFragment;
 import com.example.ebudaya.Fragments.ProfileFragment;
 import com.example.ebudaya.Fragments.SettingsFragment;
+import com.example.ebudaya.Models.Post;
 import com.example.ebudaya.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -45,6 +53,11 @@ import com.example.ebudaya.databinding.ActivityHome2Binding;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -59,6 +72,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     ImageView popupUserImage, popupPostImage, popupAddBtn;
     TextView popupTitle, popupDescription;
     ProgressBar popupClickProgress;
+    private Uri pickedImgUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +146,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 // here when image clicked we need to open the gallery
                 // before we open the gallery we need to check if our app have the access to user files
                 // we did this before in register activity I'm just going to copy the code to save time ...
+                checkAndRequestForPermission();
 
 
             }
@@ -155,10 +170,31 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         }
         else
+            //everything goes well : we have permission to access user gallery
             openGallery();
 
     }
 
+    /*  this is new way to open gallery in new version of sdk
+    // Define this as an instance variable
+ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+    new ActivityResultContracts.StartActivityForResult(),
+    result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            // There are no request codes
+            Intent data = result.getData();
+            if (data != null) {
+                pickedImgUri = data.getData();
+                popupPostImage.setImageURI(pickedImgUri);
+            }
+        }
+    });
+
+private void openGallery() {
+    Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+    galleryIntent.setType("image/*");
+    mActivityResultLauncher.launch(galleryIntent);
+} */
     private void openGallery() {
 
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -166,6 +202,23 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         startActivityForResult(galleryIntent,REQUESTCODE);
 
     }
+
+    // when user picked an image ...
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUESTCODE && data != null) {
+
+            //the user has successfully picked an image
+            //we need to save its reference to a Uri variable
+            pickedImgUri = data.getData();
+            popupPostImage.setImageURI(pickedImgUri);
+
+        }
+    }
+
+
 
     private void iniPopup() {
         popAddPost = new Dialog(this);
@@ -192,11 +245,96 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 //when click on add post button,the post button will be invisible and progress bar will be visible
                 popupAddBtn.setVisibility(View.INVISIBLE);
                 popupClickProgress.setVisibility(View.VISIBLE);
+
+                //we need to test all input fields (title and description) and post image
+                if (!popupTitle.getText().toString().isEmpty()
+                    && !popupDescription.getText().toString().isEmpty()
+                    && pickedImgUri != null) {
+
+                    //everything is ok no empty or null value
+                    // TODO create post object and add it to firebase database
+                    // first we need to upload post image
+                    // access firebase storage
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("blog_images");
+                    final StorageReference imageFilePath = storageReference.child(pickedImgUri.getLastPathSegment());
+                    imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            imageFilePath.getDownloadUrl().addOnSuccessListener((OnSuccessListener) (uri) -> {
+                                String imageDownloadLink = uri.toString();
+                                // create post object
+                                Post post = new Post(popupTitle.getText().toString(),
+                                        popupDescription.getText().toString(),
+                                        imageDownloadLink,
+                                        currentUser.getUid(),
+                                        currentUser.getPhotoUrl().toString());
+
+                                // Add post to firebase database
+                                addPost(post);
+
+
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // something goes wrong uploading picture
+                                    showMessage(e.getMessage());
+                                    popupClickProgress.setVisibility(View.INVISIBLE);
+                                    popupAddBtn.setVisibility(View.VISIBLE);
+                                }
+                            });
+
+
+                        }
+                    });
+
+
+                }
+                else {
+                    showMessage("Please verify all input fields and choose post image");
+                    popupAddBtn.setVisibility(View.VISIBLE);
+                    popupClickProgress.setVisibility(View.INVISIBLE);
+                }
+
+
+
             }
         });
 
 
     }
+
+    private void addPost(Post post) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Posts").push();
+
+        // get post unique ID and update post key
+        String key = myRef.getKey();
+        post.setPostKey(key);
+
+
+        // add post data to firebase database
+
+        myRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                showMessage("Post Added successfully");
+                popupClickProgress.setVisibility(View.INVISIBLE);
+                popupAddBtn.setVisibility(View.VISIBLE);
+                popAddPost.dismiss();
+            }
+        });
+
+    }
+
+
+
+    private void showMessage(String message) {
+        Toast.makeText(Home.this,message,Toast.LENGTH_LONG).show();
+    }
+
 
     //(based on video) onBackPressed (deprecated) - but follow the video purposely
     public void onBackPressed() {
@@ -270,3 +408,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
 }
+
+
+//TODO 1. Fix unable to load post photo
