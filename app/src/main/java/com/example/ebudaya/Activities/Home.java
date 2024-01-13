@@ -59,6 +59,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -145,7 +147,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             public void onClick(View view) {
                 // here when image clicked we need to open the gallery
                 // before we open the gallery we need to check if our app have the access to user files
-                // we did this before in register activity I'm just going to copy the code to save time ...
                 checkAndRequestForPermission();
 
 
@@ -155,6 +156,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     private void checkAndRequestForPermission() {
 
+        /*
         if(ContextCompat.checkSelfPermission(Home.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.shouldShowRequestPermissionRationale(Home.this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -170,12 +172,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         }
         else
+        */
             //everything goes well : we have permission to access user gallery
             openGallery();
 
     }
 
-    /*  this is new way to open gallery in new version of sdk
+     // this is new way to open gallery in new version of sdk
     // Define this as an instance variable
 ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
     new ActivityResultContracts.StartActivityForResult(),
@@ -194,29 +197,32 @@ private void openGallery() {
     Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
     galleryIntent.setType("image/*");
     mActivityResultLauncher.launch(galleryIntent);
-} */
-    private void openGallery() {
+}
 
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,REQUESTCODE);
 
-    }
-
-    // when user picked an image ...
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == REQUESTCODE && data != null) {
-
-            //the user has successfully picked an image
-            //we need to save its reference to a Uri variable
-            pickedImgUri = data.getData();
-            popupPostImage.setImageURI(pickedImgUri);
-
-        }
-    }
+    // (based on video)
+//    private void openGallery() {
+//
+//        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//        galleryIntent.setType("image/*");
+//        startActivityForResult(galleryIntent,REQUESTCODE);
+//
+//    }
+//
+//    // when user picked an image ...
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode == RESULT_OK && requestCode == REQUESTCODE && data != null) {
+//
+//            //the user has successfully picked an image
+//            //we need to save its reference to a Uri variable
+//            pickedImgUri = data.getData();
+//            popupPostImage.setImageURI(pickedImgUri);
+//
+//        }
+//    }
 
 
 
@@ -261,20 +267,24 @@ private void openGallery() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            imageFilePath.getDownloadUrl().addOnSuccessListener((OnSuccessListener) (uri) -> {
-                                String imageDownloadLink = uri.toString();
-                                // create post object
-                                Post post = new Post(popupTitle.getText().toString(),
-                                        popupDescription.getText().toString(),
-                                        imageDownloadLink,
-                                        currentUser.getUid(),
-                                        currentUser.getPhotoUrl().toString());
+                            imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageDownloadLink = uri.toString();
+                                    // create post Object
+                                    Post post = new Post(popupTitle.getText().toString(),
+                                            popupDescription.getText().toString(),
+                                            imageDownloadLink,
+                                            currentUser.getUid(),
+                                            Objects.requireNonNull(currentUser.getPhotoUrl()).toString());
 
-                                // Add post to firebase database
-                                addPost(post);
+                                    // Add post to firebase database
+
+                                    addPost(post);
 
 
 
+                                }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
@@ -410,4 +420,4 @@ private void openGallery() {
 }
 
 
-//TODO 1. Fix unable to load post photo
+//TODO 1. fix unable to store posts in firebase database
