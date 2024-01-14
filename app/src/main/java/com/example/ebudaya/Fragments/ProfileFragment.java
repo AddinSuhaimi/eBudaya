@@ -1,6 +1,7 @@
 package com.example.ebudaya.Fragments;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -157,14 +160,19 @@ public class ProfileFragment extends Fragment {
         ProfilePageName = view.findViewById(R.id.ProfilePageName);
         ProfilePageEmail = view.findViewById(R.id.ProfilePageEmail);
         ProfilePageBio = view.findViewById(R.id.ProfilePageBio);
+        ImageView ProfilePageImage = view.findViewById(R.id.ProfilePagePicture);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String name = currentUser.getDisplayName();
             String email = currentUser.getEmail();
+            Uri photoUrl = currentUser.getPhotoUrl();
 
             ProfilePageName.setText(name);
             ProfilePageEmail.setText(email);
+            if (photoUrl != null) {
+                Glide.with(this).load(photoUrl).into(ProfilePageImage);
+            }
         }
 
         sharedViewModel.getEditedName().observe(getViewLifecycleOwner(), new Observer<String>() {
