@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class ProfileFragment extends Fragment {
 
-    private TextView ProfilePageName, ProfilePageEmail;
+    private SharedViewModel sharedViewModel;
+    private TextView ProfilePageName, ProfilePageEmail, ProfilePageBio;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,6 +77,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -85,6 +90,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ProfilePageName = view.findViewById(R.id.ProfilePageName);
         ProfilePageEmail = view.findViewById(R.id.ProfilePageEmail);
+        ProfilePageBio = view.findViewById(R.id.ProfilePageBio);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -94,6 +100,26 @@ public class ProfileFragment extends Fragment {
             ProfilePageName.setText(name);
             ProfilePageEmail.setText(email);
         }
+
+        sharedViewModel.getEditedName().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newName) {
+                ProfilePageName.setText(newName);
+            }
+        });
+        sharedViewModel.getEditedEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newEmail) {
+                ProfilePageEmail.setText(newEmail);
+            }
+        });
+
+        sharedViewModel.getEditedBio().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newBio) {
+                ProfilePageBio.setText(newBio);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }
@@ -101,4 +127,6 @@ public class ProfileFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
+
 }

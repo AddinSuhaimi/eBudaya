@@ -135,10 +135,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //
+        // (based on video)
         updateNavHeader();
 
-        // set the home fragment as the default one
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
 
@@ -425,3 +424,6 @@ private void openGallery() {
     }
 
 }
+
+
+//TODO 1. fix unable to store posts in firebase database
