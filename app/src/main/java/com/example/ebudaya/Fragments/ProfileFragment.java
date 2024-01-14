@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ebudaya.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +24,8 @@ import com.example.ebudaya.R;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    private TextView ProfilePageName, ProfilePageEmail;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,8 +82,20 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        ProfilePageName = view.findViewById(R.id.ProfilePageName);
+        ProfilePageEmail = view.findViewById(R.id.ProfilePageEmail);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String name = currentUser.getDisplayName();
+            String email = currentUser.getEmail();
+
+            ProfilePageName.setText(name);
+            ProfilePageEmail.setText(email);
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
     @Override
     public void onAttach(Context context) {
