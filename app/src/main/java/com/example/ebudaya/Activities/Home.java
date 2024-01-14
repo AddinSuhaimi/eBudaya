@@ -74,7 +74,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     ImageView popupUserImage, popupPostImage, popupAddBtn;
     TextView popupTitle, popupDescription;
     ProgressBar popupClickProgress;
-    private Uri pickedImgUri = null;
+    private Uri pickedImgUri ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,13 +271,14 @@ private void openGallery() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String imageDownloadLink = uri.toString();
+                                    //String photoUrl = (currentUser.getPhotoUrl() != null) ? currentUser.getPhotoUrl().toString() : "default";
                                     // create post Object
                                     Post post = new Post(popupTitle.getText().toString(),
                                             popupDescription.getText().toString(),
                                             imageDownloadLink,
                                             currentUser.getUid(),
-                                            Objects.requireNonNull(currentUser.getPhotoUrl()).toString());
-
+                                            currentUser.getPhotoUrl().toString());
+                                    //currentUser.getPhotoUrl().toString()
                                     // Add post to firebase database
 
                                     addPost(post);
