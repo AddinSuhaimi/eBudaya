@@ -164,7 +164,7 @@
     <Button
         android:id="@+id/ProfilePageButtonEdit"
         android:layout_width="113dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:text="Edit Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
