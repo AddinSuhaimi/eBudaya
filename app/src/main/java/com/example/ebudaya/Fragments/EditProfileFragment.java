@@ -3,13 +3,16 @@ package com.example.ebudaya.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
 
 /**
@@ -19,8 +22,9 @@ import com.example.ebudaya.R;
  */
 public class EditProfileFragment extends Fragment {
 
+    private SharedViewModel sharedViewModel;
     EditText ProfileEditName, ProfileEditEmail, ProfileEditBio;
-    Button Button;
+    Button ProfileEditBtnSave;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +60,7 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -65,7 +70,28 @@ public class EditProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+
+        ProfileEditName = view.findViewById(R.id.ProfileEditName);
+        ProfileEditEmail = view.findViewById(R.id.ProfileEditEmail);
+        ProfileEditBio = view.findViewById(R.id.ProfileEditBio);
+        ProfileEditBtnSave = view.findViewById(R.id.ProfileEditBtnSave);
+
+        ProfileEditBtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String editedName = ProfileEditName.getText().toString();
+                String editedEmail = ProfileEditEmail.getText().toString();
+                String editedBio = ProfileEditBio.getText().toString();
+
+                sharedViewModel.setEditedName(editedName);
+                sharedViewModel.setEditedEmail(editedEmail);
+                sharedViewModel.setEditedBio(editedBio);
+                Toast.makeText(requireContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
     }
+
 }
