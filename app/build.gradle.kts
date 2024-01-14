@@ -49,6 +49,7 @@ dependencies {
     // Add the dependency for the Firebase Storage Library
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
+    implementation ("com.google.firebase:firebase-appcheck:17.1.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.navigation:navigation-fragment:2.7.6")
