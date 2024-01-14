@@ -226,7 +226,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void updateUI() {
 
-        Intent HomeActivity = new Intent(getApplicationContext(), com.example.ebudaya.Activities.Home.class);
+        Intent HomeActivity = new Intent(this,com.example.ebudaya.Activities.Home.class);
         startActivity(HomeActivity);
         finish();
 
