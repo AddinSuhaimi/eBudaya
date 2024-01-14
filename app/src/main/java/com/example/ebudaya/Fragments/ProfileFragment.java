@@ -178,13 +178,15 @@ public class ProfileFragment extends Fragment {
         sharedViewModel.getEditedName().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String newName) {
-                ProfilePageName.setText(newName);
+                // If newName is not empty, use it; otherwise, use the existing name
+                ProfilePageName.setText(!newName.isEmpty() ? newName : currentUser.getDisplayName());
             }
         });
         sharedViewModel.getEditedEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String newEmail) {
-                ProfilePageEmail.setText(newEmail);
+                // If newEmail is not empty, use it; otherwise, use the existing email
+                ProfilePageEmail.setText(!newEmail.isEmpty() ? newEmail : currentUser.getEmail());
             }
         });
 
