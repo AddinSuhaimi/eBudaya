@@ -35,18 +35,6 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button BtnEdit = view.findViewById(R.id.ProfilePageButtonEdit);
-        View.OnClickListener OCLEdit = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.nav_edit_profile);
-            }
-        };
-        BtnEdit.setOnClickListener(OCLEdit);
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
