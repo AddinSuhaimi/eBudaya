@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Button;
 
 import com.example.ebudaya.R;
 
@@ -16,6 +18,9 @@ import com.example.ebudaya.R;
  * create an instance of this fragment.
  */
 public class EditProfileFragment extends Fragment {
+
+    EditText ProfileEditName, ProfileEditEmail, ProfileEditBio;
+    Button Button;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
