@@ -30,6 +30,48 @@
         app:layout_constraintTop_toTopOf="@+id/ProfilePageYellowBg"
         app:layout_constraintVertical_bias="0.837" />
 
+    <Button
+        android:id="@+id/ProfilePageButtonFood"
+        android:layout_width="106dp"
+        android:layout_height="52dp"
+        android:background="#EAE1D9"
+        android:text="Food"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
+
+    <Button
+        android:id="@+id/ProfilePageButtonArt"
+        android:layout_width="107dp"
+        android:layout_height="52dp"
+        android:background="#EAE1D9"
+        android:text="Art"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.843" />
+
+    <Button
+        android:id="@+id/ProfilePageButtonHistory"
+        android:layout_width="106dp"
+        android:layout_height="52dp"
+        android:background="#EAE1D9"
+        android:text="History"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.843" />
+
     <ImageView
         android:id="@+id/ProfilePagePicture"
         android:layout_width="255dp"
@@ -83,69 +125,31 @@
         app:layout_constraintVertical_bias="0.567" />
 
     <Button
-        android:id="@+id/ProfilePageButtonFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#EAE1D9"
-        android:text="Friends"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <Button
-        android:id="@+id/ProfilePageButtonMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#EAE1D9"
-        android:text="Message"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <Button
         android:id="@+id/ProfilePageButtonDance"
-        android:layout_width="104dp"
-        android:layout_height="65dp"
+        android:layout_width="106dp"
+        android:layout_height="52dp"
         android:background="#EAE1D9"
         android:text="Dance"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734" />
-
-    <Button
-        android:id="@+id/ProfilePageButtonFood"
-        android:layout_width="104dp"
-        android:layout_height="65dp"
-        android:background="#EAE1D9"
-        android:text="Food"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.747"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734" />
+        app:layout_constraintVertical_bias="0.739" />
 
     <Button
         android:id="@+id/ProfilePageButtonHistoricalSites"
-        android:layout_width="160dp"
-        android:layout_height="74dp"
+        android:layout_width="163dp"
+        android:layout_height="56dp"
         android:background="#EAE1D9"
         android:text="Historical Sites"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
+        app:layout_constraintVertical_bias="0.951" />
 
     <TextView
         android:id="@+id/ProfilePageTags"

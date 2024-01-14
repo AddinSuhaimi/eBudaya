@@ -54,6 +54,72 @@ public class ProfileFragment extends Fragment {
             }
         };
         BtnEdit.setOnClickListener(OCLEdit);
+
+        sharedViewModel.getShowButtonArt().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean showButton) {
+                Button ProfilePageButtonArt = view.findViewById(R.id.ProfilePageButtonArt);
+                if (showButton) {
+                    // Show ProfilePageButtonArt
+                    ProfilePageButtonArt.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide ProfilePageButtonArt
+                    ProfilePageButtonArt.setVisibility(View.GONE);
+                }
+            }
+        });
+        sharedViewModel.getShowButtonDance().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean showButton) {
+                Button ProfilePageButtonDance = view.findViewById(R.id.ProfilePageButtonDance);
+                if (showButton) {
+                    // Show ProfilePageButtonDance
+                    ProfilePageButtonDance.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide ProfilePageButtonDance
+                    ProfilePageButtonDance.setVisibility(View.GONE);
+                }
+            }
+        });
+        sharedViewModel.getShowButtonFood().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean showButton) {
+                Button ProfilePageButtonFood = view.findViewById(R.id.ProfilePageButtonFood);
+                if (showButton) {
+                    // Show ProfilePageButtonFood
+                    ProfilePageButtonFood.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide ProfilePageButtonDance
+                    ProfilePageButtonFood.setVisibility(View.GONE);
+                }
+            }
+        });
+        sharedViewModel.getShowButtonHistory().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean showButton) {
+                Button ProfilePageButtonHistory = view.findViewById(R.id.ProfilePageButtonHistory);
+                if (showButton) {
+                    // Show ProfilePageButtonHistory
+                    ProfilePageButtonHistory.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide ProfilePageButtonHistory
+                    ProfilePageButtonHistory.setVisibility(View.GONE);
+                }
+            }
+        });
+        sharedViewModel.getShowButtonHistoricalSites().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean showButton) {
+                Button ProfilePageButtonHistoricalSites = view.findViewById(R.id.ProfilePageButtonHistoricalSites);
+                if (showButton) {
+                    // Show ProfilePageButtonHistoricalSites
+                    ProfilePageButtonHistoricalSites.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide ProfilePageButtonHistoricalSites
+                    ProfilePageButtonHistoricalSites.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     /**

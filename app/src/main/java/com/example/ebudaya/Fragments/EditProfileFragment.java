@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.example.ebudaya.R;
 public class EditProfileFragment extends Fragment {
 
     private SharedViewModel sharedViewModel;
+    private CheckBox ProfileEditCBArt, ProfileEditCBHistory, ProfileEditCBDance, ProfileEditCBFood, ProfileEditCBHistoricalSites;
     EditText ProfileEditName, ProfileEditEmail, ProfileEditBio;
     Button ProfileEditBtnSave;
 
@@ -76,6 +79,49 @@ public class EditProfileFragment extends Fragment {
         ProfileEditEmail = view.findViewById(R.id.ProfileEditEmail);
         ProfileEditBio = view.findViewById(R.id.ProfileEditBio);
         ProfileEditBtnSave = view.findViewById(R.id.ProfileEditBtnSave);
+
+        // Initialize checkboxes
+        ProfileEditCBArt = view.findViewById(R.id.ProfileEditCBArt);
+        ProfileEditCBDance = view.findViewById(R.id.ProfileEditCBDance);
+        ProfileEditCBFood = view.findViewById(R.id.ProfileEditCBFood);
+        ProfileEditCBHistory = view.findViewById(R.id.ProfileEditCBHistory);
+        ProfileEditCBHistoricalSites = view.findViewById(R.id.ProfileEditCBHistoricalSites);
+
+        // Set listeners for each checkbox
+        ProfileEditCBArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonArt(isChecked);
+            }
+        });
+
+        ProfileEditCBDance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonDance(isChecked);
+            }
+        });
+
+        ProfileEditCBFood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonFood(isChecked);
+            }
+        });
+
+        ProfileEditCBHistory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonHistory(isChecked);
+            }
+        });
+
+        ProfileEditCBHistoricalSites.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonHistoricalSites(isChecked);
+            }
+        });
 
         ProfileEditBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
