@@ -25,6 +25,7 @@ import androidx.annotation.GravityInt;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.ebudaya.Fragments.EditProfileFragment;
 import com.example.ebudaya.Fragments.HomeFragment;
 import com.example.ebudaya.Fragments.ProfileFragment;
 import com.example.ebudaya.Fragments.SettingsFragment;
@@ -391,6 +392,10 @@ private void openGallery() {
         else if (id == R.id.nav_settings) {
             getSupportActionBar().setTitle("Settings");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
+        }
+        else if (id == R.id.nav_edit_profile) {
+            getSupportActionBar().setTitle("Edit Profile");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditProfileFragment()).commit();
         }
         else if (id == R.id.nav_signout) {
             FirebaseAuth.getInstance().signOut();
