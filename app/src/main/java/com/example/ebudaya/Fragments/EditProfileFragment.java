@@ -1,5 +1,6 @@
 package com.example.ebudaya.Fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,10 +13,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +85,7 @@ public class EditProfileFragment extends Fragment {
         ProfileEditEmail = view.findViewById(R.id.ProfileEditEmail);
         ProfileEditBio = view.findViewById(R.id.ProfileEditBio);
         ProfileEditBtnSave = view.findViewById(R.id.ProfileEditBtnSave);
+        ImageView ProfileEditUserPhoto = view.findViewById(R.id.ProfileEditUserPhoto);
 
         // Initialize checkboxes
         ProfileEditCBArt = view.findViewById(R.id.ProfileEditCBArt);
@@ -86,6 +93,13 @@ public class EditProfileFragment extends Fragment {
         ProfileEditCBFood = view.findViewById(R.id.ProfileEditCBFood);
         ProfileEditCBHistory = view.findViewById(R.id.ProfileEditCBHistory);
         ProfileEditCBHistoricalSites = view.findViewById(R.id.ProfileEditCBHistoricalSites);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!= null) {
+            Uri photoUrl = currentUser.getPhotoUrl();
+            if (photoUrl != null) {
+                Glide.with(this).load(photoUrl).transform(new CircleCrop()).into(ProfileEditUserPhoto);
+            }
+        }
 
         // Set listeners for each checkbox
         ProfileEditCBArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

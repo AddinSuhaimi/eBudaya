@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -171,7 +172,7 @@ public class ProfileFragment extends Fragment {
             ProfilePageName.setText(name);
             ProfilePageEmail.setText(email);
             if (photoUrl != null) {
-                Glide.with(this).load(photoUrl).into(ProfilePageImage);
+                Glide.with(this).load(photoUrl).transform(new CircleCrop()).into(ProfilePageImage);
             }
         }
 
