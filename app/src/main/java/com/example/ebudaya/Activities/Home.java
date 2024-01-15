@@ -25,6 +25,8 @@ import androidx.annotation.GravityInt;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.ebudaya.Fragments.EditProfileFragment;
 import com.example.ebudaya.Fragments.HomeFragment;
 import com.example.ebudaya.Fragments.ProfileFragment;
 import com.example.ebudaya.Fragments.SettingsFragment;
@@ -242,7 +244,7 @@ private void openGallery() {
         popupClickProgress = popAddPost.findViewById(R.id.popup_progressBar);
 
         // load current user profile photo
-        Glide.with(Home.this).load(currentUser.getPhotoUrl()).into(popupUserImage);
+        Glide.with(Home.this).load(currentUser.getPhotoUrl()).transform(new CircleCrop()).into(popupUserImage);
 
         // Add post click listener
         popupAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -391,6 +393,10 @@ private void openGallery() {
             getSupportActionBar().setTitle("Settings");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
         }
+        else if (id == R.id.nav_edit_profile) {
+            getSupportActionBar().setTitle("Edit Profile");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditProfileFragment()).commit();
+        }
         else if (id == R.id.nav_signout) {
             FirebaseAuth.getInstance().signOut();
             Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
@@ -415,7 +421,7 @@ private void openGallery() {
 
         // now we will use Glide to load user image
         // first we need to import the library
-        Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserPhot);
+        Glide.with(this).load(currentUser.getPhotoUrl()).transform(new CircleCrop()).into(navUserPhot);
     }
 
 }

@@ -1,14 +1,27 @@
 package com.example.ebudaya.Fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.ebudaya.Adapters.SharedViewModel;
 import com.example.ebudaya.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +29,11 @@ import com.example.ebudaya.R;
  * create an instance of this fragment.
  */
 public class EditProfileFragment extends Fragment {
+
+    private SharedViewModel sharedViewModel;
+    private CheckBox ProfileEditCBArt, ProfileEditCBHistory, ProfileEditCBDance, ProfileEditCBFood, ProfileEditCBHistoricalSites;
+    EditText ProfileEditName, ProfileEditEmail, ProfileEditBio;
+    Button ProfileEditBtnSave;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +69,7 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -60,7 +79,79 @@ public class EditProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+
+        ProfileEditName = view.findViewById(R.id.ProfileEditName);
+        ProfileEditEmail = view.findViewById(R.id.ProfileEditEmail);
+        ProfileEditBio = view.findViewById(R.id.ProfileEditBio);
+        ProfileEditBtnSave = view.findViewById(R.id.ProfileEditBtnSave);
+        ImageView ProfileEditUserPhoto = view.findViewById(R.id.ProfileEditUserPhoto);
+
+        // Initialize checkboxes
+        ProfileEditCBArt = view.findViewById(R.id.ProfileEditCBArt);
+        ProfileEditCBDance = view.findViewById(R.id.ProfileEditCBDance);
+        ProfileEditCBFood = view.findViewById(R.id.ProfileEditCBFood);
+        ProfileEditCBHistory = view.findViewById(R.id.ProfileEditCBHistory);
+        ProfileEditCBHistoricalSites = view.findViewById(R.id.ProfileEditCBHistoricalSites);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!= null) {
+            Uri photoUrl = currentUser.getPhotoUrl();
+            if (photoUrl != null) {
+                Glide.with(this).load(photoUrl).transform(new CircleCrop()).into(ProfileEditUserPhoto);
+            }
+        }
+
+        // Set listeners for each checkbox
+        ProfileEditCBArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonArt(isChecked);
+            }
+        });
+
+        ProfileEditCBDance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonDance(isChecked);
+            }
+        });
+
+        ProfileEditCBFood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonFood(isChecked);
+            }
+        });
+
+        ProfileEditCBHistory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonHistory(isChecked);
+            }
+        });
+
+        ProfileEditCBHistoricalSites.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedViewModel.setShowButtonHistoricalSites(isChecked);
+            }
+        });
+
+        ProfileEditBtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String editedName = ProfileEditName.getText().toString();
+                String editedEmail = ProfileEditEmail.getText().toString();
+                String editedBio = ProfileEditBio.getText().toString();
+
+                sharedViewModel.setEditedName(editedName);
+                sharedViewModel.setEditedEmail(editedEmail);
+                sharedViewModel.setEditedBio(editedBio);
+                Toast.makeText(requireContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
     }
+
 }
