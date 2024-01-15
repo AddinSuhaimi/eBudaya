@@ -50,14 +50,21 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
         Button BtnEdit = view.findViewById(R.id.ProfilePageButtonEdit);
-        View.OnClickListener OCLEdit = new View.OnClickListener() {
+        BtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.nav_edit_profile);
+                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_editProfileFragment);
             }
-        };
-        BtnEdit.setOnClickListener(OCLEdit);
+        });
+//        View.OnClickListener OCLEdit = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(view).navigate(R.id.nav_edit_profile);
+//            }
+//        };
+//        BtnEdit.setOnClickListener(OCLEdit);
 
         sharedViewModel.getShowButtonArt().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override

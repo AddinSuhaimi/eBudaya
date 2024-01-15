@@ -106,26 +106,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 popAddPost.show();
             }
         });
-//        DrawerLayout drawer = binding.drawerLayout;
 
-        //(based on video)
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
 
-//        NavigationView navigationView = binding.navView;
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_home, R.id.nav_profile, R.id.nav_settings)
-//                .setOpenableLayout(drawer)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.container);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
-
-        //based on original code
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -136,7 +118,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        // (based on video)
+
         updateNavHeader();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
@@ -182,49 +164,49 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
      // this is new way to open gallery in new version of sdk
     // Define this as an instance variable
-ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-    new ActivityResultContracts.StartActivityForResult(),
-    result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            // There are no request codes
-            Intent data = result.getData();
-            if (data != null) {
-                pickedImgUri = data.getData();
-                popupPostImage.setImageURI(pickedImgUri);
-            }
-        }
-    });
+//ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+//    new ActivityResultContracts.StartActivityForResult(),
+//    result -> {
+//        if (result.getResultCode() == Activity.RESULT_OK) {
+//            // There are no request codes
+//            Intent data = result.getData();
+//            if (data != null) {
+//                pickedImgUri = data.getData();
+//                popupPostImage.setImageURI(pickedImgUri);
+//            }
+//        }
+//    });
 
-private void openGallery() {
-    Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-    galleryIntent.setType("image/*");
-    mActivityResultLauncher.launch(galleryIntent);
-}
+//private void openGallery() {
+//    Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//    galleryIntent.setType("image/*");
+//    mActivityResultLauncher.launch(galleryIntent);
+//}
 
 
     // (based on video)
-//    private void openGallery() {
-//
-//        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//        galleryIntent.setType("image/*");
-//        startActivityForResult(galleryIntent,REQUESTCODE);
-//
-//    }
-//
-//    // when user picked an image ...
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (resultCode == RESULT_OK && requestCode == REQUESTCODE && data != null) {
-//
-//            //the user has successfully picked an image
-//            //we need to save its reference to a Uri variable
-//            pickedImgUri = data.getData();
-//            popupPostImage.setImageURI(pickedImgUri);
-//
-//        }
-//    }
+    private void openGallery() {
+
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,REQUESTCODE);
+
+    }
+
+    // when user picked an image ...
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUESTCODE && data != null) {
+
+            //the user has successfully picked an image
+            //we need to save its reference to a Uri variable
+            pickedImgUri = data.getData();
+            popupPostImage.setImageURI(pickedImgUri);
+
+        }
+    }
 
 
 
@@ -283,7 +265,7 @@ private void openGallery() {
                                     //currentUser.getPhotoUrl().toString()
                                     // Add post to firebase database
 
-                                    addPost(post);
+                                   addPost(post);
 
 
 
@@ -367,6 +349,18 @@ private void openGallery() {
     }
 
     // onOptionsItemSelected (deprecated) - but follow the video purposely
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override

@@ -1,2 +1,2 @@
 # eBudaya App
-## DescriptionProject Management and MAD project: eBudaya Community Application
+## Project Management and MAD project: eBudaya Community Application
