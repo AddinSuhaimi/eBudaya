@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.FeedbackFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#92754B">
+
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="239dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="64dp"
+            android:clickable="true"
+            android:longClickable="false"
+            android:numStars="5"
+            android:progress="1"
+            android:progressBackgroundTint="#ECBDBD"
+            android:progressTint="#610A0A"
+            android:rating="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            tools:scrollbarSize="8dp" />
+
+        <TextView
+            android:id="@+id/ExperienceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="24dp"
+            android:text="Rate your experience using our app:"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="410dp"
+            android:layout_height="342dp"
+            android:layout_marginBottom="82dp"
+            android:background="#7A4241"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/FeedbackImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="68dp"
+                android:scrollbarSize="8dp"
+                android:src="@drawable/img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/AdditionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="124dp"
+            android:text="Additional Comments:"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="372dp"
+            android:layout_height="153dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="168dp"
+            android:background="#EAE1D8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <EditText
+                android:id="@+id/FeedbackEditText"
+                android:layout_width="222dp"
+                android:layout_height="50dp"
+                android:ems="256"
+                android:hint="Enter your feedback..."
+                android:inputType="textPassword"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/SubmitButton"
+            android:layout_width="316dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="340dp"
+            android:background="#7F5700"
+            android:text="Submit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
