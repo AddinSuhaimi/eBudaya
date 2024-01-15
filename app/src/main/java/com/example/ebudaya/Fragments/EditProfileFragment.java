@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
  * A simple {@link Fragment} subclass.
  * Use the {@link EditProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
- */
+ *///
 public class EditProfileFragment extends Fragment {
 
     private SharedViewModel sharedViewModel;
