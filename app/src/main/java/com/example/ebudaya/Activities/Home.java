@@ -27,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.ebudaya.Fragments.EditProfileFragment;
+import com.example.ebudaya.Fragments.FeedbackFragment;
 import com.example.ebudaya.Fragments.HomeFragment;
 import com.example.ebudaya.Fragments.ProfileFragment;
 import com.example.ebudaya.Fragments.SettingsFragment;
@@ -390,6 +391,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         else if (id == R.id.nav_edit_profile) {
             getSupportActionBar().setTitle("Edit Profile");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditProfileFragment()).commit();
+        }
+        else if (id == R.id.nav_feedback) {
+            getSupportActionBar().setTitle("Feedback");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new FeedbackFragment()).commit();
         }
         else if (id == R.id.nav_signout) {
             FirebaseAuth.getInstance().signOut();
