@@ -7,10 +7,10 @@
     android:background="#92754B"
     tools:context=".Fragments.HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/posts" />
 </LinearLayout>
